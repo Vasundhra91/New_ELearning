@@ -70,14 +70,16 @@ var routes = [
     name: "Home",
     icon: "nc-icon nc-caps-small",
     component: home,
-    layout: "/admin"
+    layout: "/admin",
+    visible:true
   },
   {
     path: "/SigninPage",
     name: "Sign In",
     icon: "nc-icon nc-caps-small",
     component: SigninPage,
-    layout: "/admin"
+    layout: "/admin",
+    visible:true
   }
   ,
   {
@@ -85,28 +87,32 @@ var routes = [
     name: "Sign Up",
     icon: "nc-icon nc-caps-small",
     component: SignupPage,
-    layout: "/admin"
+    layout: "/admin",
+    visible:true
   },
   {
     path: "/AdminPage",
     name: "Admin",
     icon: "nc-icon nc-caps-small",
     component: AdminPage,
-    layout: "/admin"
+    layout: "/admin",
+    visible:true
   },
   {
     path: "/User_test",
     name: "User Page",
     icon: "nc-icon nc-caps-small",
     component: User_test,
-    layout: "/admin"
+    layout: "/admin",
+    visible:false
   },
   {
     path: "/AdminTestPaperPage",
     name: "Test Paper Page",
     icon: "nc-icon nc-caps-small",
     component: AdminTestPaperPage,
-    layout: "/admin"
+    layout: "/admin",
+    visible:true
   }
   
 ];

@@ -57,7 +57,7 @@ class Sidebar extends React.Component {
           <Nav>
             {this.props.routes.map((prop, key) => {
               return (
-                <li
+                <li style={{display:(prop.visible ? 'block' : 'none') }}
                   className={
                     this.activeRoute(prop.path) +
                     (prop.pro ? " active-pro" : "")
