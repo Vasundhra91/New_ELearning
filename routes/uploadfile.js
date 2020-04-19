@@ -1,6 +1,5 @@
-//----------------upload file---------------------------------------
 // Require packages
-//const express = require('express');
+const express = require('express');
 const path = require('path');
 const crypto = require('crypto');
 const mongoose = require('mongoose');
@@ -29,15 +28,15 @@ const storage = new GridFsStorage({
   url: mongoURI,
   file: (req, file) => {
     return new Promise((resolve, reject) => {
-      crypto.randomBytes(16, (err, buf) => {
+    
         if (err) return reject(err);
-        const filename = buf.toString('hex') + path.extname(file.originalname);
-      const fileInfo = {
+       // const filename = buf.toString('hex') + path.extname(file.originalname);
+        const filename = file.originalname;
+        const fileInfo = {
         filename: filename,
         bucketName: 'uploads'
       };
       resolve(fileInfo);
-    });
   });
   }
 });
@@ -52,7 +51,7 @@ app.set('view engine', 'ejs');
 // ROUTES
 // **************************
 // Home Page Route
-app.get('/uploadfile', (req, res) => {
+app.get('/', (req, res) => {
   gfs.files.find().toArray((err, files) => {
     if (!files || files.length === 0) {
       res.render('index', { files: false });
@@ -66,7 +65,12 @@ app.get('/uploadfile', (req, res) => {
 });
 
 // POST - Upload a file
-app.post('/upload', upload.single('file'), (req, res) => res.redirect('/'));
+app.post('/upload', upload.single('file'), (req, res) => {
+gfs.files.find().toArray((err, files) => {
+  if (!files || files.length === 0) return res.status(404).json({ err: 'No files exist' });
+  return res.json(files);
+});
+});
 
 // Return array of all files
 app.get('/files', (req, res) => {
@@ -80,7 +84,8 @@ app.get('/files', (req, res) => {
 app.get('/files/:filename', (req, res) => {
   gfs.files.findOne({ filename: req.params.filename }, (err, file) => {
     if (!file || file.length === 0) return res.status(404).json({ err: 'No file exists' });
-    return res.json(file);
+    const readstream = gfs.createReadStream(file.filename);
+    readstream.pipe(res);
   });
 });
 
@@ -107,4 +112,3 @@ app.delete('/files/:id', (req, res) => {
 
 // Start the Server
 app.listen(port, () => console.log(`Server started on port ${port}`));
-//----------------------------------------------------------------

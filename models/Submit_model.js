@@ -17,6 +17,10 @@ var modelschema = new Schema({
     }
     ,_id:{
         type:String
+    },Result:{
+        type:String
+    },User_id:{
+        type:Number
     }
 })
 modelschema.plugin(autoIncrement.plugin, {

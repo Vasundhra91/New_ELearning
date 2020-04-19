@@ -5,10 +5,19 @@ import { Card, CardHeader, CardBody, CardTitle, Table, Row, Col } from "reactstr
 export default class User_paper extends Component {
     state = {
         testpaper: [],
-        Ques_id: ""
+        Ques_id: "",
+        DeletedQues_id: false,
+        Username:""
     }
 
     componentDidMount() {
+        // let userinfo=  this.props.location.state.Name 
+        // userinfo =userinfo.split('-')
+        // this.setState({ Username: userinfo[0] })
+
+
+
+        
         fetch('/users/AdminTestPaper')
             .then(res => res.json())
             .then(testpaper => this.setState({ testpaper }))
@@ -18,10 +27,22 @@ export default class User_paper extends Component {
         e.preventDefault();
         this.setState({ Ques_id: e.target.id })
     }
+    handleDeleteEvent = (e) => {
+        e.preventDefault();
+        this.state.DeletedQues_id=true;
+        fetch('/users/deletetest_paper/'+ e.target.id , {
+            method: 'delete',
+            headers: {
+                'Content-Type': 'application/json'
+            }}).then(res => res.json())
+            .then(testpaper => this.setState({ testpaper }))
+            .then(response => console.log('Success:', JSON.stringify(response)))
+            .catch(error => console.error('Error:', error))
+    }
     render() {
         var count = 0;
         if (this.state.Ques_id !== "") {
-            console.log(this.state.Ques_id)
+            if(this.state.DeletedQues_id===false)
             return (
                 <Redirect to={{
                     pathname: "/admin/User_test",
@@ -30,10 +51,10 @@ export default class User_paper extends Component {
             )
         }
         else {
-            return (
-                this.state.testpaper.map(MCQ_ques => {
+                const MCQ_queslist = this.state.testpaper.map(MCQ_ques => {
                     count++;
-                    return (<div  key={MCQ_ques._id} >
+                    return (
+                    <div  key={MCQ_ques._id} >
                         <Row>
                             <Col md="12">
                                 <Card>
@@ -43,9 +64,14 @@ export default class User_paper extends Component {
                                     <CardBody>
                                         <Table>
                                                 <tr>
+                                                    <td>
                                                     <div>
                                                         <button type="submit" id={MCQ_ques._id} onClick={this.handleSumbmitEvent}> Test Paper: {count} </button>
                                                     </div>
+                                                    </td>
+                                                    <td>
+                                                        <button type="submit" id={MCQ_ques._id} onClick={this.handleDeleteEvent}> Delete Test Paper: {count} </button>
+                                                    </td>
                                                 </tr>
                                         </Table>
                                     </CardBody>
@@ -54,8 +80,17 @@ export default class User_paper extends Component {
                         </Row>
                         </div>
                     )
-
-                }))
+                }
+                )
+                return (
+                    
+                  <div>
+                      <div>
+                          {this.state.Username}
+                      </div>
+                    {MCQ_queslist}
+                  </div>
+                )
         }
     }
 

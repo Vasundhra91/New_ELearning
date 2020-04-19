@@ -1,5 +1,4 @@
 import React from 'react';
-import Grid from '@material-ui/core/Grid';
 class  AddQuestion extends React.Component {
     state = {
         MCQ_option: [],
@@ -23,7 +22,8 @@ class  AddQuestion extends React.Component {
             MCQ_queslist =  MCQ_queslist +','+'"'+optionid[i]+'"'
         }
          data1 = '{"Ques_id":' + '"'+this.state.Ques_id+'"'+ ',"MCQ_Answer":' + '"'+this.state.MCQ_Answer+'"'+ ',"MCQ_ques":' + '"'+this.state.MCQ_ques+'"'+ ',"MCQ_option":{"option":[ '+ MCQ_queslist.substr(1) + ']}}';
-        console.log(data1)
+        //data1 = '{"Ques_id":' + '"'+this.state.Ques_id+'"'+ ',"MCQ_Answer":' + '"'+this.state.MCQ_Answer+'"'+ ',"MCQ_ques":' + '"'+this.state.MCQ_ques+'"'+ ',"User_id":' +0+ ',"Result":' + '"'+"null"+'"'+ ',"MCQ_option":{"option":[ '+ MCQ_queslist.substr(1) + ']}}';
+         console.log(data1)
          this.props.AddDetails(JSON.parse(data1))
         e.target.reset();
         this.setState({

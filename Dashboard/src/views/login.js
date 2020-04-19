@@ -73,12 +73,28 @@ export default function SignIn() {
       .catch(error => console.error('Error:', error));
   
    
-  }
-  console.log(JSON.stringify(Fname))
-  if (Fname.status === 200) {
+  }var value=""
+  if(Fname==="")
+value= "n-n-n"
+else value=Fname
+
+  let obj = value;
+      let keys = Object.keys(obj);
+     let lat = obj[keys[0]];
+     if(lat==="n")
+lat= "n-n-n"
+     var adminOruser= lat.split('-')
+
+  if (String(adminOruser[2]) === 'N') {
     return <Redirect to={{
       pathname: '/admin/AdminTestPaperPage',
-      state: { Name: Fname }
+      state: { Name: lat }
+  }}
+/>
+  }else if (String(adminOruser[2]) === 'Y') {
+    return <Redirect to={{
+      pathname: '/admin/AdminPage',
+      state: { Name: lat }
   }}
 />
   }

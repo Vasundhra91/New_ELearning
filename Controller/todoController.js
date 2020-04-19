@@ -4,7 +4,10 @@ module.exports = function (app) {
     var bodyParser = require('body-parser')
     app.use(bodyParser.json());
     //const getdata = require(__dirname + '../../routes/users.js');
-
+    app.use(bodyParser.urlencoded({
+        extended: false
+        }));
+        app.enable('trust proxy');
     const config = require(__dirname + '../../ConfigFile/config.js').connectionstring;
 
     mongoose.connect(config)

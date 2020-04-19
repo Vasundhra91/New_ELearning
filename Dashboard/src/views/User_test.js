@@ -5,22 +5,23 @@ export default class User_test extends Component {
         users: [],
         Marks: " ",
         users_answer: [],
-        selectedValue:""
+        selectedValue: "",
+        userinfoid: "5e9c3277004c8b7118debff3"
     }
 
     componentDidMount() {
-        
-     const newUser={Ques_id:this.props.location.state.id}
-       fetch('/users/id', {
-        method: 'POST',
-        body: JSON.stringify(newUser),
-        headers: {
-            'Content-Type': 'application/json'
-        }}).then(res => res.json())
-        //.then(response => console.log('Success:', JSON.stringify(response)))
-        .then(users => this.setState({ users }))
-        .catch(error => console.error('Error:', error))
-                
+        const newUser = { Ques_id: this.props.location.state.id }
+        fetch('/users/id', {
+            method: 'POST',
+            body: JSON.stringify(newUser),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(res => res.json())
+            //.then(response => console.log('Success:', JSON.stringify(response)))
+            .then(users => this.setState({ users }))
+            .catch(error => console.error('Error:', error))
+
         // fetch('/users')
         //     .then(res => res.json())
         //     .then(users => this.setState({ users }));
@@ -29,33 +30,75 @@ export default class User_test extends Component {
         e.preventDefault();
         var a = this.state.users_answer;
         var b = this.state.users;
-       
+        // let testResult = [];
+        // let usertestResult = "";
         if (a.length !== b.length)
             this.setState({ Marks: "incorrect format" })
         else {
             var totalmarks = 0;
-            for (var i = 0; i < a.length; i++)
 
-                if (a[i][0].MCQ_Answer === b[i].MCQ_Answer && (a[i][0].Ques_id === b[i]._id) )
+            for (var i = 0; i < a.length; i++) {
+                // let Result = ""
+                // var answers = "W"
+                // let item = {}
+                // let jsonObj = [];
+
+                // item["Ques_id"] = b[i].Ques_id;
+                // item["MCQ_tests_id"]=b[i]._id;
+                // item["MCQ_Answer"] = a[i][0].MCQ_Answer;
+                // item["MCQ_Ques"] = b[i].MCQ_ques;
+                if (a[i][0].MCQ_Answer === b[i].MCQ_Answer && (a[i][0].Ques_id == b[i]._id)) {
                     totalmarks++;
+                    // answers = "R";
+                    // item["Result"] = answers;
+                }
+                else {
+                    // answers = "W";
+                    // item["Result"] = answers;
+                }
+                //      jsonObj.push(item);
+                //    testResult.push(jsonObj)
+            }
+            //console.log(JSON.stringify(testResult))
         }
-        var percent = totalmarks * 100 / a.length;
-        if (Math.round(percent) >= 40)
-            this.setState({ Marks: "Marks:" + totalmarks + " PASS" })
-        else
-            this.setState({ Marks: "Marks:" + totalmarks + " FAIL" })
 
+        var percent = totalmarks * 100 / a.length;
+        var resultvalue = "";
+        if (Math.round(percent) >= 40) {
+            resultvalue = totalmarks + "-PASS";
+            this.setState({ Marks: "Marks:" + totalmarks + "-PASS" })
+        }
+        else {
+            resultvalue = totalmarks + "-FAIL";
+            this.setState({ Marks: "Marks:" + totalmarks + "-FAIL" })
+        }
+        let itemnew = {}
+        let jsonnewObj = [];
+        itemnew["Ques_id"] = b[0].Ques_id ;
+        itemnew["User_id"]=this.state.userinfoid;
+        itemnew["Result"] = resultvalue;
+        jsonnewObj.push(itemnew);
+        console.log(jsonnewObj)
+        
+        fetch('/users/UserTestResult', {
+            method: 'POST',
+            body: JSON.stringify(jsonnewObj),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(res => res.json())
+            .then(returndata => this.setState({ setSubmit: returndata }))
+            .catch(error => console.error('Error:', error));
     }
 
     render() {
-        // console.log(this.state.users) 
-        
+
         let Result = ""
         let item = {}
         let jsonObj = [];
 
         const handleChange = event => {
-           this.setState({selectedValue:event.target.value});
+            this.setState({ selectedValue: event.target.value });
             item["Ques_id"] = event.target.id;
             item["MCQ_Answer"] = event.target.value;
             jsonObj.push(item);
@@ -74,7 +117,7 @@ export default class User_test extends Component {
                         return <div key={i}>
                             <label>
                                 <Radio
-                                   // checked={this.state.selectedValue === {MCQ_option}}
+                                    // checked={this.state.selectedValue === {MCQ_option}}
                                     onChange={handleChange}
                                     id={MCQ_ques._id}
                                     value={MCQ_option}
@@ -91,13 +134,13 @@ export default class User_test extends Component {
         }
         )
         return (
-            
-                <form onSubmit={this.handleSumbmitEvent}>
-                    <h2>Test Paper</h2>
-                    {MCQ_queslist}
-                    <h3> {this.state.Marks}</h3>
-                    <button type="submit">Submit </button>
-                </form>
+
+            <form onSubmit={this.handleSumbmitEvent}>
+                <h2>Test Paper</h2>
+                {MCQ_queslist}
+                <h3> {this.state.Marks}</h3>
+                <button type="submit">Submit </button>
+            </form>
         )
     }
 }
