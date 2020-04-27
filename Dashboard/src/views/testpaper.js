@@ -7,14 +7,7 @@ export default class User_paper extends Component {
         testpaper: [],
         Ques_id: "",
         DeletedQues_id: false,
-        Username:"",
-        user:{Fname:"vasu",
-        LName:"tariyal",
-        Useremail:"vasu.tariyal@gmail.com",
-        Userpassword:"guest",
-        UserCourseID:"guestCourse" ,
-        UserAdmin:"guest" ,
-        Inserted_date :"12/3/2020",}
+        Username:""
     }
     static contextType = userContext;
     componentDidMount() {

@@ -3,7 +3,13 @@ export const userContext = React.createContext();
 export class UserContextProvider extends Component
 {
     state={
-        user:{}
+        user:{Fname:"learning123guest",
+         LName:"guest",
+         Useremail:"guest@gmail.com",
+         Userpassword:"guest",
+         UserCourseID:"guestCourse" ,
+         UserAdmin:"guest" ,
+         Inserted_date :"dd/mm/yyyy",}
     }
       setUser = user => {
         this.setState(prevState => ({ user }))

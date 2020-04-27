@@ -1,7 +1,8 @@
 import React from 'react'
-
+import Link from '@material-ui/core/Link';
 //import Maapform from './RangeCircleform'
 export default function Home() {
+    
     return (
         <div>
             <div className="row" style={{ background: "blue", width: "100%" }}>
@@ -9,7 +10,10 @@ export default function Home() {
                     <h2>E-Learning</h2>
                 </div>
                 <div className="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-            <button type="submit" >Login </button></div> 
+                <Link href="/admin/SignupPage/" variant="body2" style={{ color: "red",fontSize:"20px"}}>
+                {"SignIn"}
+              </Link>
+            </div>
             </div>
           
 
