@@ -22,9 +22,6 @@ export default class User_test extends Component {
             .then(users => this.setState({ users }))
             .catch(error => console.error('Error:', error))
 
-        // fetch('/users')
-        //     .then(res => res.json())
-        //     .then(users => this.setState({ users }));
     }
     handleSumbmitEvent = (e) => {
         e.preventDefault();
@@ -72,17 +69,17 @@ export default class User_test extends Component {
             resultvalue = totalmarks + "-FAIL";
             this.setState({ Marks: "Marks:" + totalmarks + "-FAIL" })
         }
-        let itemnew = {}
-        let jsonnewObj = [];
-        itemnew["Ques_id"] = b[0].Ques_id ;
-        itemnew["User_id"]=this.state.userinfoid;
-        itemnew["Result"] = resultvalue;
-        jsonnewObj.push(itemnew);
-        console.log(jsonnewObj)
-        
+        var tempDate = new Date();
+        var date = tempDate.getFullYear() + '-' + (tempDate.getMonth()+1) + '-' + tempDate.getDate() +' '+ tempDate.getHours()+':'+ tempDate.getMinutes()+':'+ tempDate.getSeconds();
+        const newUser = {
+            Ques_id: b[0].Ques_id,
+            User_id:this.state.userinfoid,
+            Result:resultvalue,
+            Inserted_date: date
+        }
         fetch('/users/UserTestResult', {
             method: 'POST',
-            body: JSON.stringify(jsonnewObj),
+            body: JSON.stringify(newUser),
             headers: {
                 'Content-Type': 'application/json'
             }
@@ -113,7 +110,7 @@ export default class User_test extends Component {
                 <div key={MCQ_ques._id}>
                     <div> Question: {MCQ_ques.MCQ_ques} </div>
                     <div> Option:  </div>
-                    {MCQ_ques.MCQ_option.option.map(function (MCQ_option, i) {
+                    {MCQ_ques.MCQ_option.map(function (MCQ_option, i) {
                         return <div key={i}>
                             <label>
                                 <Radio

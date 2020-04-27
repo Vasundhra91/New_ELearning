@@ -1,4 +1,4 @@
-import React , { useState } from 'react';
+import React , { useState,useContext } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -12,7 +12,8 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import { Redirect } from 'react-router-dom'
+import { Redirect } from 'react-router-dom';
+import {userContext} from 'views/Logincontext'
 
 function Copyright() {
   return (
@@ -51,8 +52,9 @@ export default function SignIn() {
   const classes = useStyles();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [Fname, setFname] = useState("");
+  const [Userdetails, setuserdetails] = useState(0);
  // const [username, setusername]= useState(props.location.state.id)
+ const {setUser }  = useContext(userContext)
   function validateForm() {
     return email.length > 0 && password.length > 0;
   }
@@ -69,35 +71,31 @@ export default function SignIn() {
       headers: {
           'Content-Type': 'application/json'
       }}).then(res => res.json())
-      .then(Fname => setFname({ Fname }))
+      .then(Userdetails => setuserdetails({ Userdetails }))
       .catch(error => console.error('Error:', error));
   
    
-  }var value=""
-  if(Fname==="")
-value= "n-n-n"
-else value=Fname
-
-  let obj = value;
+  }
+  if(Userdetails!==0){
+  let obj = Userdetails;
       let keys = Object.keys(obj);
      let lat = obj[keys[0]];
-     if(lat==="n")
-lat= "n-n-n"
-     var adminOruser= lat.split('-')
+  //adding data to user context
+     setUser(lat)
 
-  if (String(adminOruser[2]) === 'N') {
+  if (String(lat.UserAdmin) === 'N') {
     return <Redirect to={{
-      pathname: '/admin/AdminTestPaperPage',
-      state: { Name: lat }
+      pathname: '/admin/AdminTestPaperPage'
+      //,state: { Name: lat }
   }}
 />
-  }else if (String(adminOruser[2]) === 'Y') {
+  }else if (String(lat.UserAdmin) === 'Y') {
     return <Redirect to={{
-      pathname: '/admin/AdminPage',
-      state: { Name: lat }
+      pathname: '/admin/AdminPage'
+      // ,state: { Name: lat }
   }}
 />
-  }
+  }}
   else{
   return (
    // <div style={{backgroundImage: `url(${homeimg})`}}>

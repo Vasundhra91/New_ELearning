@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import ViewAddMCQGrid from "./ViewAddMCQGrid.js";
 import MCQ_AddQues from "./AddQues.js";
 class Admin extends React.Component {

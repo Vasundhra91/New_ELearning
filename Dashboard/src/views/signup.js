@@ -12,7 +12,9 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import axios from "axios";
 //import homeimg from '../../images/login.jpg'
+import Select from "react-select";
 import { Redirect } from 'react-router-dom'
 function Copyright() {
   return (
@@ -56,22 +58,41 @@ export default function SignUp() {
   const [course, setcourse] = useState("");
   const [Admin, setAdmin] = useState("N");
   const [returndata, setreturndata] = useState("");
-  const [Submit, setSubmit] = useState(false);
-  
+  const [selectedOption, setselectedOption] = useState(false);
+  const [data, setData] = useState({label: "Loading ...", value: ""});
+  const [loading, setLoading] = React.useState(true);
 
   function validateForm() {
     return email.length > 0 && password.length > 0 && course.length > 0 && firstName.length > 0 && lastName.length > 0;
   }
+  
+  function handleChange(event) {
+    var id =event.value;
+    setselectedOption({ id });
+    setcourse(id);
+    console.log(event.value)
+   };
+  useEffect(() => {
+    axios
+        .get("/users/coursedetails")
+        .then(result => setData(result.data.map((data) => { return { value: data._id, label: data.Usercourse } })))
+        setLoading(false);
+}, []);
+
 
   function handleSubmit(event) {
     event.preventDefault();
+    var tempDate = new Date();
+    var date = tempDate.getFullYear() + '-' + (tempDate.getMonth()+1) + '-' + tempDate.getDate() +' '+ tempDate.getHours()+':'+ tempDate.getMinutes()+':'+ tempDate.getSeconds();
+  
     const newUser={
       Fname:firstName,
       LName:lastName,
       Useremail:email,
       Userpassword:password,
       UserAdmin: Admin,
-      UserCourse: course,
+      UserCourseID: course,
+      Inserted_date:date
     }
   
     
@@ -164,7 +185,7 @@ if(returndata!=="")
               />
             </Grid>
             <Grid item xs={12}>
-              <TextField
+              {/* <TextField
                 variant="outlined"
                 required
                 fullWidth
@@ -174,7 +195,9 @@ if(returndata!=="")
                 id="course"
                 autoComplete="current-course"
                 onChange={e => setcourse(e.target.value)}
-              />
+              /> */}
+              <Select disabled={loading} value={selectedOption} classname ="form-control input-sm" options={data}  onChange={handleChange}  />
+           
             </Grid>
             <Grid item xs={12}>
               <FormControlLabel

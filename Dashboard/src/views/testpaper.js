@@ -1,23 +1,29 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom'
 import { Card, CardHeader, CardBody, CardTitle, Table, Row, Col } from "reactstrap";
-
+import {userContext} from 'views/Logincontext'
 export default class User_paper extends Component {
     state = {
         testpaper: [],
         Ques_id: "",
         DeletedQues_id: false,
-        Username:""
+        Username:"",
+        user:{Fname:"vasu",
+        LName:"tariyal",
+        Useremail:"vasu.tariyal@gmail.com",
+        Userpassword:"guest",
+        UserCourseID:"guestCourse" ,
+        UserAdmin:"guest" ,
+        Inserted_date :"12/3/2020",}
     }
-
+    static contextType = userContext;
     componentDidMount() {
-        // let userinfo=  this.props.location.state.Name 
+        const { user } = this.context
+
+    console.log(user)
+        //let userinfo=  this.props.location.state.Name
         // userinfo =userinfo.split('-')
         // this.setState({ Username: userinfo[0] })
-
-
-
-        
         fetch('/users/AdminTestPaper')
             .then(res => res.json())
             .then(testpaper => this.setState({ testpaper }))
@@ -29,7 +35,7 @@ export default class User_paper extends Component {
     }
     handleDeleteEvent = (e) => {
         e.preventDefault();
-        this.state.DeletedQues_id=true;
+        this.setState({ DeletedQues_id:true});
         fetch('/users/deletetest_paper/'+ e.target.id , {
             method: 'delete',
             headers: {
@@ -40,6 +46,7 @@ export default class User_paper extends Component {
             .catch(error => console.error('Error:', error))
     }
     render() {
+        console.log(this.context)
         var count = 0;
         if (this.state.Ques_id !== "") {
             if(this.state.DeletedQues_id===false)

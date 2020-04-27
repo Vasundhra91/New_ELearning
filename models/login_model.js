@@ -14,12 +14,15 @@ var modelschema = new Schema({
    Userpassword:{
       type: String,
    },
-   UserCourse: {
+   UserCourseID: {
       type: String,
    },
    UserAdmin: {
       type: String,
-   }, 
+   },
+   Inserted_date: {
+       type: String
+   } 
 })
 
 module.exports = Login = mongoose.model('Login', modelschema);

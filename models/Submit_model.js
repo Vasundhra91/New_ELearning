@@ -4,24 +4,27 @@ const autoIncrement = require('mongoose-auto-increment');
 mongoose.set('useFindAndModify', false);
 autoIncrement.initialize(mongoose.connection);
 var modelschema = new Schema({
-    MCQ_option: {
-        type: JSON
+    _id:{
+        type:String
+    },
+    Ques_id:{
+        type:Number
+    },
+    UserCourseID:{
+        type: String
     },
     MCQ_ques: {
         type: String
     },
     MCQ_Answer: {
         type: String
-    },Ques_id:{
-        type:Number
-    }
-    ,_id:{
-        type:String
-    },Result:{
-        type:String
-    },User_id:{
-        type:Number
-    }
+    },
+    MCQ_option: {
+        type: JSON
+    },
+    Inserted_date: {
+        type: String
+    } 
 })
 modelschema.plugin(autoIncrement.plugin, {
     model: 'MCQ_Test',

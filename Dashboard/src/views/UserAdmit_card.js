@@ -1,7 +1,7 @@
 import React from 'react';
 class  AdmitCard extends React.Component {
     state = {
-        user_id: "5e7f4a359f828716503c5b39",
+        user_id: "5e9c3277004c8b7118debff3",
         UserStatus: [],
         usersinfo:[]
     }
@@ -22,11 +22,31 @@ class  AdmitCard extends React.Component {
     }
     render() {
         console.log(this.state.usersinfo)
-        return (
-            <>
-            <h1>Admit Card</h1>
-            </>
-        )
+        const AdmitCard = this.state.usersinfo.map(Userinfo => {
+            return (
+              <div key={Userinfo._id}>
+                <div className ="container">
+                  <div>
+                   <h2>{Userinfo.Fname}</h2>
+                  </div>
+                    <div> Name: {Userinfo.Fname} {Userinfo.LName} </div>
+                  
+                  <div>
+                    <div> Course: {Userinfo.UserCourse} </div>
+                  </div>
+                  <div>
+                    
+                </div>
+                </div>
+              </div>
+            )
+          }
+          )
+          return (
+            <div>
+              {AdmitCard}
+            </div>
+          )
     }
 }
 

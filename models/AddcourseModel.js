@@ -2,13 +2,7 @@ var mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 var modelschema = new Schema({
-    User_id:{
-        type:String
-    },
-    Ques_id:{
-        type:String
-    },
-    Result: {
+    Usercourse: {
         type: String
     },
     Inserted_date: {
@@ -17,4 +11,4 @@ var modelschema = new Schema({
     
 })
 
-module.exports = TestResult = mongoose.model('TestResult', modelschema);
+module.exports = UserCourse = mongoose.model('UserCourse', modelschema);

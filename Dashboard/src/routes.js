@@ -6,6 +6,7 @@ import SigninPage from "views/login"
  import AdminTestPaperPage from "views/testpaper"
 import uploadMaterialfile from "views/uploadMaterialfile"
 import UserAdmit_card from "views/UserAdmit_card"
+import Usercourse from "views/course"
 
 var routes = [
   {
@@ -71,6 +72,14 @@ var routes = [
     name: "Admit_card",
     icon: "nc-icon nc-caps-small",
     component: UserAdmit_card,
+    layout: "/admin",
+    visible:true
+  },
+  {
+    path: "/course",
+    name: "Usercourse",
+    icon: "nc-icon nc-caps-small",
+    component: Usercourse,
     layout: "/admin",
     visible:true
   }
