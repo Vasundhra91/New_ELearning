@@ -4,14 +4,14 @@ import React from 'react'
 export default function Home() {
     return (
         <div>
-            <div className="row">
-                <div style={{ background: "blue", width: "100%" }} className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div className="row" style={{ background: "blue", width: "100%" }}>
+                <div className="col-lg-10 col-md-10 col-sm-10 col-xs-10 " style={{ paddingLeft: "70px"}} >
                     <h2>E-Learning</h2>
                 </div>
+                <div className="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+            <button type="submit" >Login </button></div> 
             </div>
-           
-            {/* <div>
-            <button type="submit" onClick={Maapform} >Submit </button></div> */}
+          
 
         </div>
     )

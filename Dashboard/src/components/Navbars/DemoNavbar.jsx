@@ -2,8 +2,6 @@ import React from "react";
 import {
   Collapse,
   Navbar,
-  NavbarToggler,
-  NavbarBrand,
   Container,
 } from "reactstrap";
 
@@ -95,7 +93,7 @@ class Header extends React.Component {
             : "navbar-absolute fixed-top " +
               (this.state.color === "transparent" ? "navbar-transparent " : "")
         }
-      >
+      > 
         <Container fluid>
           <div className="navbar-wrapper">
             <div className="navbar-toggle">
@@ -110,21 +108,15 @@ class Header extends React.Component {
                 <span className="navbar-toggler-bar bar3" />
               </button>
             </div>
-            <NavbarBrand href="/">{this.getBrand()}</NavbarBrand>
           </div>
-          <NavbarToggler onClick={this.toggle}>
-            <span className="navbar-toggler-bar navbar-kebab" />
-            <span className="navbar-toggler-bar navbar-kebab" />
-            <span className="navbar-toggler-bar navbar-kebab" />
-          </NavbarToggler>
+          
           <Collapse
             isOpen={this.state.isOpen}
             navbar
             className="justify-content-end"
           >
-           
-            
           </Collapse>
+          
         </Container>
       </Navbar>
     );
