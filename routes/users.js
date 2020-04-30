@@ -72,7 +72,9 @@ router.post('/login', function (req, res) {
         console.log("2")
     }
      else {
-       res.json(user);
+      console.log( user)
+      
+       res.json(user); 
      // res.send(JSON.stringify(user.Fname + " " + user.LName+"-"+user._id+"-"+user.UserAdmin))
     }
   })

@@ -13,7 +13,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import axios from "axios";
-//import homeimg from '../../images/login.jpg'
+import homeimg from '../image/elearning.jpg'
 import Select from "react-select";
 import { Redirect } from 'react-router-dom'
 function Copyright() {
@@ -119,9 +119,9 @@ if(returndata!=="")
     )
     } else{
   return (
-   // <div style={{backgroundImage: `url(${homeimg})`}}>
+    <div style={{backgroundImage: `url(${homeimg})`}}>
  
-    <Container component="main" maxWidth="xs" style={{background:"#FFFDD0"}}>
+ <Container component="main" maxWidth="xs" style={{background:"#cce6ff"}}>
       <CssBaseline />
       <div>{returndata.id}</div>
       <div className={classes.paper}>
@@ -230,7 +230,7 @@ if(returndata!=="")
         <Copyright />
       </Box>
     </Container>
-  //</div>
+  </div>
   )
 }
 }

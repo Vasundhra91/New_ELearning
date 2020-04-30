@@ -1,6 +1,8 @@
 import React from 'react'
 import ViewAddMCQGrid from "./ViewAddMCQGrid.js";
-import MCQ_AddQues from "./AddQues.js";
+import Addques from "./AddQues.js";
+import Button from '@material-ui/core/Button';
+
 class Admin extends React.Component {
     state={
         MCQ_ques :[],
@@ -52,14 +54,15 @@ class Admin extends React.Component {
     render() {
       
         return (
-            <div className="App">
-                <h2>MCQ</h2>
+            <div style={{background:"#cce6ff"}}>
                 {this.state.labelmsg}
                 {/* <label id="lbl_success" value={this.state.labelmsg}></label> */}
-                <MCQ_AddQues AddDetails ={this.AddMCQDetails} />
+                <Addques AddDetails ={this.AddMCQDetails} />
                 <ViewAddMCQGrid MCQ_quesdetails={this.state.MCQ_ques} DeleteMCQ_quesdetails={this.DeleteMCQ_ques} />
                 <form onSubmit={this.handleAddtoDb}>
-                <button type="submit">SAVE</button>
+                    <div className="col-lg-1 col-xl-1 col-md-2 col-sm-2">
+                <Button type="submit" fullWidth variant="contained" color="primary">SAVE</Button>
+                </div>
                 </form>
             </div>
         );

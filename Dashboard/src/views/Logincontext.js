@@ -4,9 +4,9 @@ export class UserContextProvider extends Component
 {
     state={
         user:{Fname:"learning123guest",
-         LName:"guest",
+         LName:"guestLname",
          Useremail:"guest@gmail.com",
-         Userpassword:"guest",
+         Userpassword:"guest123",
          UserCourseID:"guestCourse" ,
          UserAdmin:"guest" ,
          Inserted_date :"dd/mm/yyyy",}

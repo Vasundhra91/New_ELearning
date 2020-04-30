@@ -1,9 +1,9 @@
 import home from "views/Home.js"
 import SigninPage from "views/login"
- import SignupPage from "views/signup"
- import AdminPage from "views/Admin"
- import User_test from "views/User_test"
- import AdminTestPaperPage from "views/testpaper"
+import SignupPage from "views/signup"
+import AdminPage from "views/Admin"
+import User_test from "views/User_test"
+import AdminTestPaperPage from "views/testpaper"
 import uploadMaterialfile from "views/uploadMaterialfile"
 import UserAdmit_card from "views/UserAdmit_card"
 import Usercourse from "views/course"
@@ -15,8 +15,7 @@ var routes = [
     icon: "nc-icon nc-caps-small",
     component: home,
     layout: "/admin",
-    visible:true,
-    display:true
+    visible:true
   },
   {
     path: "/SigninPage",
@@ -24,8 +23,7 @@ var routes = [
     icon: "nc-icon nc-caps-small",
     component: SigninPage,
     layout: "/admin",
-    visible:true,
-    display:true
+    visible:true
   }
   ,
   {
@@ -34,8 +32,7 @@ var routes = [
     icon: "nc-icon nc-caps-small",
     component: SignupPage,
     layout: "/admin",
-    visible:true,
-    display:true
+    visible:true
   },
   {
     path: "/AdminPage",
@@ -43,8 +40,7 @@ var routes = [
     icon: "nc-icon nc-caps-small",
     component: AdminPage,
     layout: "/admin",
-    visible:true,
-    display:"admin"
+    visible:true
   },
   {
     path: "/User_test",
@@ -52,8 +48,7 @@ var routes = [
     icon: "nc-icon nc-caps-small",
     component: User_test,
     layout: "/admin",
-    visible:false,
-    display:false
+    visible:false
   },
   {
     path: "/AdminTestPaperPage",
@@ -61,8 +56,7 @@ var routes = [
     icon: "nc-icon nc-caps-small",
     component: AdminTestPaperPage,
     layout: "/admin",
-    visible:true,
-    display:"both"
+    visible:true
   }
   ,
   {
@@ -71,17 +65,7 @@ var routes = [
     icon: "nc-icon nc-caps-small",
     component: uploadMaterialfile,
     layout: "/admin",
-    visible:true,
-    display:"admin"
-  },
-  {
-    path: "/UserAdmit_card",
-    name: "Admit_card",
-    icon: "nc-icon nc-caps-small",
-    component: UserAdmit_card,
-    layout: "/admin",
-    visible:true,
-    display:"user"
+    visible:true
   },
   {
     path: "/course",
@@ -89,8 +73,7 @@ var routes = [
     icon: "nc-icon nc-caps-small",
     component: Usercourse,
     layout: "/admin",
-    visible:true,
-    display:"admin"
+    visible:true
   }
   
 ];

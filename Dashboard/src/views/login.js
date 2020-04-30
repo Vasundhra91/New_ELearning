@@ -12,9 +12,10 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import { Redirect } from 'react-router-dom';
+import { Router, Route, Switch, Redirect } from "react-router-dom";
 import {userContext} from 'views/Logincontext'
-
+import homeimg from '../image/elearning.jpg'
+import AdminPage from 'views/Admin'
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
@@ -86,20 +87,25 @@ export default function SignIn() {
   if (String(lat.UserAdmin) === 'N') {
     return <Redirect to={{
       pathname: '/admin/AdminTestPaperPage'
-      //,state: { Name: lat }
+     //,state: { Name: lat }
+      
+        //   this.state.menuroute = route.filter(function (entry) { return entry.display === "user" || entry.display === "both" });    
   }}
 />
+
   }else if (String(lat.UserAdmin) === 'Y') {
     return <Redirect to={{
       pathname: '/admin/AdminPage'
       // ,state: { Name: lat }
+        //   this.state.menuroute = route.filter(function (entry) { return entry.display === "admin" || entry.display === "both" });
+        
   }}
 />
   }}
   else{
   return (
-   // <div style={{backgroundImage: `url(${homeimg})`}}>
-    <Container component="main" maxWidth="xs" style={{background:"#FFFDD0"}}>
+    <div style={{backgroundImage: `url(${homeimg})`}}>
+   <Container component="main" maxWidth="xs" style={{background:"#cce6ff"}}>
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
@@ -154,7 +160,7 @@ export default function SignIn() {
               </Link>
             </Grid>
             <Grid item>
-              <Link href="/admin/SignupPage/" variant="body2">
+              <Link href="/admin/signup/" variant="body2">
                 {"Don't have an account? Sign Up"}
               </Link>
             </Grid>
@@ -165,7 +171,7 @@ export default function SignIn() {
         <Copyright />
       </Box>
     </Container>
-    //</div>
+    </div>
   
   );
 }

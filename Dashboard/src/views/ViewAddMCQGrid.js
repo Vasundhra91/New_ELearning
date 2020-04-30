@@ -1,6 +1,6 @@
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
-//import homeimg from '../../images/login.jpg'
+import Button from '@material-ui/core/Button';
 
 const MCQ_Function = ({ MCQ_quesdetails, DeleteMCQ_quesdetails }) => {
   const MCQ_queslist = MCQ_quesdetails.map(MCQ_ques => {
@@ -21,7 +21,7 @@ const MCQ_Function = ({ MCQ_quesdetails, DeleteMCQ_quesdetails }) => {
             <div> Answer: {MCQ_ques.MCQ_Answer} </div>
           </Grid>
           <Grid item xs={3}>
-            <button onClick={() => { DeleteMCQ_quesdetails(MCQ_ques.id) }}> Delete Item </button>
+            <Button variant="contained" color="primary" onClick={() => { DeleteMCQ_quesdetails(MCQ_ques.id) }}> Delete Item </Button>
           </Grid>
         </Grid>
       </div>
