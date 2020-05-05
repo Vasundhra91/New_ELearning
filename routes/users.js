@@ -28,12 +28,9 @@ router.post('/', function (req, res) {
       LoginModel.create(req.body).then(function (data) {
         { 
           res.send(JSON.stringify({ id :req.body.Fname +req.body.LName }, null, 3)); }
-          console.log(req.body.Fname +req.body.LName)
       })
     } else {
       console.log("Already Exit")
-      // res.json({ returndata: "Already Exit....." })
-       res.send(JSON.stringify({ id : "Already Exit....." }));
 
     }
   })
@@ -103,9 +100,13 @@ console.log(req.body)
    }
   })
 });
-
-router.get('/AdminTestPaper', function (req, res) {
-  SubmitModel.aggregate([{$sort : { _id : 1 }},{$group: {_id: "$Ques_id"}}
+//frist match then group then sort (-1 group in descending order.)
+router.post('/AdminTestPaper', function (req, res) {
+  SubmitModel.aggregate(
+    [
+  {$match : { "UserCourseID": req.body.UserCourseID}},
+  {$group: {_id: "$Ques_id"}},
+  {$sort : { Ques_id : 1 }}
   ]).exec(function(error, fetchAllTopUsers){
     if (error) { throw error }
     console.log(fetchAllTopUsers)
