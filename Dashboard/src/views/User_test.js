@@ -1,15 +1,24 @@
 import React, { Component } from 'react';
 import Radio from '@material-ui/core/Radio';
+import {userContext} from 'views/Logincontext'
 export default class User_test extends Component {
     state = {
         users: [],
         Marks: " ",
+        Result: " ",
         users_answer: [],
         selectedValue: "",
-        userinfoid: "5e9c3277004c8b7118debff3"
+        userinfoid: ""
     }
-
+    static contextType = userContext;
     componentDidMount() {
+        const { user } = this.context
+       
+        let obj = user;
+    let keys = Object.keys(obj);
+    let lat = obj[keys[0]];
+    console.log(lat._id)
+    this.setState({userinfoid:lat._id})
         const newUser = { Ques_id: this.props.location.state.id }
         fetch('/users/id', {
             method: 'POST',
@@ -60,21 +69,25 @@ export default class User_test extends Component {
         }
 
         var percent = totalmarks * 100 / a.length;
-        var resultvalue = "";
-        if (Math.round(percent) >= 40) {
-            resultvalue = totalmarks + "-PASS";
-            this.setState({ Marks: "Marks:" + totalmarks + "-PASS" })
+        var Result =""
+        if (Math.round(percent) >= 60) {
+            
+            this.setState({ Marks: totalmarks})
+            this.setState({ Result: "PASS"})
+            Result ="PASS"
         }
         else {
-            resultvalue = totalmarks + "-FAIL";
-            this.setState({ Marks: "Marks:" + totalmarks + "-FAIL" })
+            this.setState({ Marks: totalmarks})
+            this.setState({ Result: "FAIL"})
+            Result ="FAIL"
         }
         var tempDate = new Date();
         var date = tempDate.getFullYear() + '-' + (tempDate.getMonth()+1) + '-' + tempDate.getDate() +' '+ tempDate.getHours()+':'+ tempDate.getMinutes()+':'+ tempDate.getSeconds();
         const newUser = {
             Ques_id: b[0].Ques_id,
             User_id:this.state.userinfoid,
-            Result:resultvalue,
+            Marks:totalmarks,
+            Result:Result,
             Inserted_date: date
         }
         fetch('/users/UserTestResult', {
@@ -135,7 +148,7 @@ export default class User_test extends Component {
             <form onSubmit={this.handleSumbmitEvent}>
                 <h2>Test Paper</h2>
                 {MCQ_queslist}
-                <h3> {this.state.Marks}</h3>
+                <h3> {this.state.Marks} {this.state.Result}</h3>
                 <button type="submit">Submit </button>
             </form>
         )

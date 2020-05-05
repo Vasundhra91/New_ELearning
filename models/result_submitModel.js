@@ -8,6 +8,9 @@ var modelschema = new Schema({
     Ques_id:{
         type:String
     },
+    Marks: {
+        type: String
+    },
     Result: {
         type: String
     },

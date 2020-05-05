@@ -46,11 +46,12 @@ router.post('/userinfo_byid', function (req, res) {
     if (data === null) {
   LoginModel.find(query,function(error,datavalue){
     if (error) { throw error }
-    console.log(datavalue)
     res.json(datavalue);
   })
 }else
-{}
+{
+  res.json({status:"No Data Found"});
+}
 })
 })
 router.post('/login', function (req, res) {

@@ -1,11 +1,24 @@
 import React from 'react';
+import { userContext } from 'views/Logincontext'
 class  AdmitCard extends React.Component {
     state = {
         user_id: "5e9c3277004c8b7118debff3",
         UserStatus: [],
         usersinfo:[]
     }
+    static contextType = userContext;
     componentDidMount() {
+
+      const { user } = this.context
+
+    console.log(user)
+    if (user !== "") {
+      let obj = user;
+      let keys = Object.keys(obj);
+      let lat = obj[keys[0]];
+      console.log(lat._id)
+      this.setState({user_id:lat._id})
+    }
         const newUser = {User_id:this.state.user_id};
          fetch('/users/userinfo_byid', {
             method: 'POST',
