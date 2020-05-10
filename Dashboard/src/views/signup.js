@@ -57,10 +57,11 @@ export default function SignUp() {
   const [lastName, setlastName] = useState("");
   const [course, setcourse] = useState("");
   const [Admin, setAdmin] = useState("N");
-  const [returndata, setreturndata] = useState("");
+  const [returndata, setreturndata] = useState(0);
   const [selectedOption, setselectedOption] = useState(false);
   const [data, setData] = useState({label: "Loading ...", value: ""});
   const [loading, setLoading] = React.useState(true);
+  const [status, setstatus] = useState(false);
 
   function validateForm() {
     return email.length > 0 && password.length > 0 && course.length > 0 && firstName.length > 0 && lastName.length > 0;
@@ -104,20 +105,14 @@ export default function SignUp() {
     }
   }).then(res => res.json())
       .then(returndata => setreturndata({ returndata }))
-      .catch(error => console.error('Error:', error));
+      .catch(error => console.error('Error:', error))
+      .then(setstatus("SignUp Sucessfully"))
 
     event.target.reset();
    
     
 }
-if(returndata!=="")
-    {return (
-      <Redirect to={{
-        pathname: "/admin/SigninPage",
-        state: { id: returndata }
-    }} />
-    )
-    } else{
+
   return (
     <div style={{backgroundImage: `url(${homeimg})`}}>
  
@@ -131,6 +126,7 @@ if(returndata!=="")
         <Typography component="h1" variant="h5">
           Sign up 
         </Typography>
+       <div style={{ color: 'red' }}> {status}</div>
         <form onSubmit={handleSubmit} className={classes.form} noValidate>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
@@ -220,7 +216,7 @@ if(returndata!=="")
           <Grid container justify="flex-end">
             <Grid item>
               <Link href="/signin/" variant="body2" >
-                Already have an account? Sign in
+                 Do have an account? Sign in
               </Link>
             </Grid>
           </Grid>
@@ -232,5 +228,4 @@ if(returndata!=="")
     </Container>
   </div>
   )
-}
 }

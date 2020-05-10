@@ -9,7 +9,7 @@ export class UserContextProvider extends Component
          Userpassword:"guest123",
          UserCourseID:"guestCourse" ,
          UserAdmin:"guest" ,
-         Inserted_date :"dd/mm/yyyy",}
+         Inserted_date :"dd/mm/yyyy"}
     }
       setUser = user => {
         this.setState(prevState => ({ user }))

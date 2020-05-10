@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Radio from '@material-ui/core/Radio';
-import {userContext} from 'views/Logincontext'
+import { userContext } from 'views/Logincontext'
 export default class User_test extends Component {
     state = {
         users: [],
@@ -13,12 +13,10 @@ export default class User_test extends Component {
     static contextType = userContext;
     componentDidMount() {
         const { user } = this.context
-       
-        let obj = user;
-    let keys = Object.keys(obj);
-    let lat = obj[keys[0]];
-    console.log(lat._id)
-    this.setState({userinfoid:lat._id})
+
+        let lat = user.Userdetails;
+        this.setState({ userinfoid: lat._id })
+        console.log(this.props.location.state.id)
         const newUser = { Ques_id: this.props.location.state.id }
         fetch('/users/id', {
             method: 'POST',
@@ -69,25 +67,25 @@ export default class User_test extends Component {
         }
 
         var percent = totalmarks * 100 / a.length;
-        var Result =""
+        var Result = ""
         if (Math.round(percent) >= 60) {
-            
-            this.setState({ Marks: totalmarks})
-            this.setState({ Result: "PASS"})
-            Result ="PASS"
+
+            this.setState({ Marks: totalmarks })
+            this.setState({ Result: "PASS" })
+            Result = "PASS"
         }
         else {
-            this.setState({ Marks: totalmarks})
-            this.setState({ Result: "FAIL"})
-            Result ="FAIL"
+            this.setState({ Marks: totalmarks })
+            this.setState({ Result: "FAIL" })
+            Result = "FAIL"
         }
         var tempDate = new Date();
-        var date = tempDate.getFullYear() + '-' + (tempDate.getMonth()+1) + '-' + tempDate.getDate() +' '+ tempDate.getHours()+':'+ tempDate.getMinutes()+':'+ tempDate.getSeconds();
+        var date = tempDate.getFullYear() + '-' + (tempDate.getMonth() + 1) + '-' + tempDate.getDate() + ' ' + tempDate.getHours() + ':' + tempDate.getMinutes() + ':' + tempDate.getSeconds();
         const newUser = {
             Ques_id: b[0].Ques_id,
-            User_id:this.state.userinfoid,
-            Marks:totalmarks,
-            Result:Result,
+            User_id: this.state.userinfoid,
+            Marks: totalmarks,
+            Result: Result,
             Inserted_date: date
         }
         fetch('/users/UserTestResult', {
@@ -140,16 +138,21 @@ export default class User_test extends Component {
                         </div>
                     })}
                 </div>
-            )
-        }
-        )
+            )})
         return (
 
             <form onSubmit={this.handleSumbmitEvent}>
-                <h2>Test Paper</h2>
-                {MCQ_queslist}
-                <h3> {this.state.Marks} {this.state.Result}</h3>
-                <button type="submit">Submit </button>
+                <div style={{ paddingTop: "50px" }}>
+                    <div className="container">
+                        <div style={{ background: "#cce6ff", width: "100%" }}>
+                            <h2>Test Paper</h2>
+                            {MCQ_queslist}
+                            <div style={{ color: 'Blue' }}>
+                                <h3> {this.state.Marks} {this.state.Result}</h3>
+                            </div>
+                            <button type="submit">Submit </button>
+                        </div>
+                    </div></div>
             </form>
         )
     }

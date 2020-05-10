@@ -1,66 +1,65 @@
 import React from 'react';
 import { userContext } from 'views/Logincontext'
-class  AdmitCard extends React.Component {
-    state = {
-        user_id: "5e9c3277004c8b7118debff3",
-        UserStatus: [],
-        usersinfo:[]
+class AdmitCard extends React.Component {
+  state = {
+    UserCourse: [],
+    usersinfo: []
+  }
+  static contextType = userContext;
+  componentDidMount() {
+    const { user } = this.context
+    let lat = user.Userdetails;
+    const newUser = {
+      Userid: lat._id,
+      status:null,
+      UserCourseID: lat.UserCourseID
     }
-    static contextType = userContext;
-    componentDidMount() {
+    fetch('/users/userinfo_byid', {
+      method: 'POST',
+      body: JSON.stringify(newUser),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }).then(res => res.json())
+      .then(UserCourse => this.setState({ UserCourse }))
+      .then(this.setState({ usersinfo: lat }))
+      .catch(error => console.error('Error:', error))
 
-      const { user } = this.context
 
-    console.log(user)
-    if (user !== "") {
-      let obj = user;
-      let keys = Object.keys(obj);
-      let lat = obj[keys[0]];
-      console.log(lat._id)
-      this.setState({user_id:lat._id})
-    }
-        const newUser = {User_id:this.state.user_id};
-         fetch('/users/userinfo_byid', {
-            method: 'POST',
-            body: JSON.stringify(newUser),
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        }).then(res => res.json())
-            //.then(response => console.log('Success:', JSON.stringify(response)))
-            .then(usersinfo => this.setState({ usersinfo }))
-            .catch(error => console.error('Error:', error))
-
+  }
+  render() {
+    if (this.state.UserCourse.status === "null") {
+      return (
+        <div style={{ paddingTop: "50px" }}>
+          <div className="container">
+        <div className="row" style={{ background: "#cce6ff", width: "100%" }}>
         
-    }
-    render() {
-        console.log(this.state.usersinfo)
-        const AdmitCard = this.state.usersinfo.map(Userinfo => {
-            return (
-              <div key={Userinfo._id}>
-                <div className ="container">
-                  <div>
-                   <h2>{Userinfo.Fname}</h2>
-                  </div>
-                    <div> Name: {Userinfo.Fname} {Userinfo.LName} </div>
-                  
-                  <div>
-                    <div> Course: {Userinfo.UserCourse} </div>
-                  </div>
-                  <div>
-                    
-                </div>
+        <div><h2> Admit Card </h2></div>
+          <h3>No Records Found.!</h3>
+          </div>
+       </div>
+       </div>
+      )
+    } else {
+      return (
+        <div style={{ paddingTop: "50px" }}>
+          <div className="row" style={{ background: "#cce6ff", width: "100%" }}>
+            <div className="container">
+              <div><h2> Admit Card </h2></div>
+              <div key={this.state.usersinfo._id}>
+                <div> Name: {this.state.usersinfo.Fname} {this.state.usersinfo.LName} </div>
+                <div> Email Id: {this.state.usersinfo.Useremail} </div>
+                <div> Course: {this.state.UserCourse.Usercourse} </div>
+                <div>
                 </div>
               </div>
-            )
-          }
-          )
-          return (
-            <div>
-              {AdmitCard}
             </div>
-          )
+          </div>
+        </div>
+      )
     }
+
+  }
 }
 
 

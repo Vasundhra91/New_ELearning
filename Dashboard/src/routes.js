@@ -7,7 +7,7 @@ import SigninPage from "views/login"
 import uploadMaterialfile from "views/uploadMaterialfile"
 import UserAdmit_card from "views/UserAdmit_card"
 import Usercourse from "views/course"
-
+import ViewQuesPaper from "views/adminviewTestPaper"
 var routes = [
   {
     path: "/home",
@@ -16,8 +16,8 @@ var routes = [
     component: home,
     layout: "/admin",
     visible:true,
-    display:true
-  },
+    display:"both"
+   },
   {
     path: "/SigninPage",
     name: "Sign In",
@@ -53,7 +53,16 @@ var routes = [
     component: User_test,
     layout: "/admin",
     visible:false,
-    display:false
+    display:"user"
+  },
+  {
+    path: "/ViewQuesPaper",
+    name: "View Ques Paper",
+    icon: "nc-icon nc-caps-small",
+    component: ViewQuesPaper,
+    layout: "/admin",
+    visible:false,
+    display:"admin"
   },
   {
     path: "/AdminTestPaperPage",

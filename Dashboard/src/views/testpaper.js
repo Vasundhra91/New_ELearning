@@ -7,21 +7,50 @@ export default class User_paper extends Component {
         testpaper: [],
         Ques_id: "",
         DeletedQues_id: false,
-        Username:""
+        Username:"",
+        visiblebutton:true,
+        admin:"Y"
     }
     static contextType = userContext;
     componentDidMount() {
         const { user } = this.context
-
-    console.log(user)
+        let lat = user.Userdetails;
+        this.setState({admin:lat.UserAdmin})
         //let userinfo=  this.props.location.state.Name
         // userinfo =userinfo.split('-')
         // this.setState({ Username: userinfo[0] })
-        fetch('/users/AdminTestPaper')
-            .then(res => res.json())
+        if(lat.UserAdmin==="N"){
+        const newUser = {
+            Userid: lat._id,
+            UserCourseID: lat.UserCourseID
+          }
+         this.setState({visiblebutton:false})
+        fetch('/users/UserTestPaper', {
+            method: 'POST',
+            body: JSON.stringify(newUser),
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          }).then(res => res.json())
             .then(testpaper => this.setState({ testpaper }))
-            .catch(error => console.error('Error:', error));
+            .catch(error => console.error('Error:', error))
+        }else{
+            const newUser = {
+                Userid: lat._id
+              }
+            fetch('/users/AdminTestPaper', {
+                method: 'POST',
+                body: JSON.stringify(newUser),
+                headers: {
+                  'Content-Type': 'application/json'
+                }
+              }).then(res => res.json())
+                .then(testpaper => this.setState({ testpaper }))
+                .catch(error => console.error('Error:', error))
+            
+        }
     }
+    
     handleSumbmitEvent = (e) => {
         e.preventDefault();
         this.setState({ Ques_id: e.target.id })
@@ -39,16 +68,26 @@ export default class User_paper extends Component {
             .catch(error => console.error('Error:', error))
     }
     render() {
-        console.log(this.context)
         var count = 0;
+       
         if (this.state.Ques_id !== "") {
-            if(this.state.DeletedQues_id===false)
+            
+            if(this.state.admin==="N"){
             return (
                 <Redirect to={{
                     pathname: "/admin/User_test",
                     state: { id: this.state.Ques_id }
                 }} />
+                
             )
+            } else if(this.state.admin==="Y"){
+                return (
+                    <Redirect to={{
+                        pathname: "/admin/ViewQuesPaper",
+                        state: { id: this.state.Ques_id }
+                    }} />  
+                )
+            }
         }
         else {
                 const MCQ_queslist = this.state.testpaper.map(MCQ_ques => {
@@ -66,11 +105,11 @@ export default class User_paper extends Component {
                                                 <tr>
                                                     <td>
                                                     <div>
-                                                        <button type="submit" id={MCQ_ques._id} onClick={this.handleSumbmitEvent}> Test Paper: {count} </button>
+                                                        <button type="submit" id={MCQ_ques.Ques_id} onClick={this.handleSumbmitEvent}> Test Paper: {count} </button>
                                                     </div>
                                                     </td>
-                                                    <td>
-                                                        <button type="submit" id={MCQ_ques._id} onClick={this.handleDeleteEvent}> Delete Test Paper: {count} </button>
+                                                    <td style={{display:(this.state.visiblebutton ? 'block' : 'none') }}>
+                                                        <button type="submit" id={MCQ_ques.Ques_id} onClick={this.handleDeleteEvent}> Delete Test Paper: {count} </button>
                                                     </td>
                                                 </tr>
                                         </Table>

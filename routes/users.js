@@ -37,20 +37,27 @@ router.post('/', function (req, res) {
 });
 
 router.post('/userinfo_byid', function (req, res) {
-  var query = { _id: req.body.User_id };
-  result_submitModel.find(query,function(error,data){
+  var query = { User_id: req.body.Userid };
+  UserTestResultModel.find().count().exec(function(error, Count){
     if (error) { throw error }
-    if (data === null) {
-  LoginModel.find(query,function(error,datavalue){
-    if (error) { throw error }
-    res.json(datavalue);
+    if (Count >=10)
+    {
+      UserTestResultModel.findOne(query,function(error,data){
+        if (error) { throw error }
+        if (data.Result === "PASS") {
+        UserCourse.findOne({ _id: req.body.UserCourseID },function(error,datavalue){
+        if (error) { throw error }
+        res.json(datavalue);
+      })
+    }
   })
-}else
+ }else
 {
-  res.json({status:"No Data Found"});
+  res.json({status:"null"});
 }
 })
 })
+
 router.post('/login', function (req, res) {
   const { Useremail, Userpassword } = req.body;
   var query = { Useremail: Useremail,Userpassword: Userpassword};
@@ -101,19 +108,53 @@ console.log(req.body)
   })
 });
 //frist match then group then sort (-1 group in descending order.)
-router.post('/AdminTestPaper', function (req, res) {
+router.post('/UserTestPaper', function (req, res) {
   SubmitModel.aggregate(
     [
   {$match : { "UserCourseID": req.body.UserCourseID}},
-  {$group: {_id: "$Ques_id"}},
-  {$sort : { Ques_id : 1 }}
-  ]).exec(function(error, fetchAllTopUsers){
+  //{$group : {"_id" : {"Ques_id" : "$Ques_id" }}},
+  {$sort : { _id : 1 }}
+  ]).exec(function(error, data){
     if (error) { throw error }
-    console.log(fetchAllTopUsers)
-    res.json(fetchAllTopUsers);
+    
+    let testResult=[]
+    var uniqueNames = [];
+    for(i = 0; i< data.length; i++){
+      let item = {}   
+    if(uniqueNames.indexOf(data[i].Ques_id) === -1){
+        uniqueNames.push(data[i].Ques_id);   
+        item["Ques_id"] = data[i].Ques_id   
+        testResult.push(item)    
+    }
+   }
+   console.log(testResult)
+   res.json(testResult);
   });
 });
 
+router.post('/AdminTestPaper', function (req, res) {
+  SubmitModel.aggregate(
+    [
+  //{$group : {"_id" : {"Ques_id" : "$Ques_id" }}},
+  {$sort : { _id : 1 }}
+  ]).exec(function(error, data){
+    if (error) { throw error }
+    
+    let testResult=[]
+   
+    var uniqueNames = [];
+    for(i = 0; i< data.length; i++){
+      let item = {}   
+    if(uniqueNames.indexOf(data[i].Ques_id) === -1){
+        uniqueNames.push(data[i].Ques_id);   
+        item["Ques_id"] = data[i].Ques_id   
+        testResult.push(item)    
+    }
+   }
+   console.log(testResult)
+   res.json(testResult);
+  });
+});
 
 router.delete('/deletetest_paper/:id', (req, res) => {
   console.log(req.params.id)

@@ -17,42 +17,41 @@ class Dashboard extends React.Component {
     this.state = {
       backgroundColor: "black",
       activeColor: "info",
-     // menuroute: route.filter(function (entry) { return entry.display === true; })
+      menuroute: route.filter(function (entry) { return entry.display === true; })
     };
     this.mainPanel = React.createRef();
   }
   static contextType = userContext;
 
   componentDidMount() {
+
+    var adminOruser= this.props.menuroute
+    if (adminOruser === "Y") {
+      this.setState({menuroute: route.filter(function (entry) 
+        { return entry.display === "admin" || entry.display === "both" })})
+       } else if (adminOruser === "N") {
+      
+      this.setState({menuroute: route.filter(function (entry) 
+        { return entry.display === "user" || entry.display === "both" })})
+     }else{
+      
+      this.setState({menuroute: route.filter(function (entry) 
+        { return entry.display === true})})
+     }
+    
+
     if (navigator.platform.indexOf("Win") > -1) {
       ps = new PerfectScrollbar(this.mainPanel.current);
       document.body.classList.toggle("perfect-scrollbar-on");
     }
   }
   componentWillUnmount() {
-    console.log("hi2")
     if (navigator.platform.indexOf("Win") > -1) {
       ps.destroy();
       document.body.classList.toggle("perfect-scrollbar-on");
     }
   }
   componentDidUpdate(e) {
-    // const { user } = this.context
-    // console.log("hi3")
-    // let obj = user;
-    // let keys = Object.keys(obj);
-    // let name = obj[keys[1]];
-    // let adminOruser = obj[keys[5]];
-    // console.log(adminOruser)
-    // if (adminOruser === "guest") {
-    //   this.state.menuroute = route.filter(function (entry) { return entry.display === true });
-    // } else if (adminOruser === "Y") {
-    //   this.state.menuroute = route.filter(function (entry) { return entry.display === "admin" || entry.display === "both" });
-    // } else if (adminOruser === "N") {
-    //   this.state.menuroute = route.filter(function (entry) { return entry.display === "user" || entry.display === "both" });
-    // }
-    // console.log(this.state.menuroute)
-    // console.log(route)
 
     if (e.history.action === "PUSH") {
       this.mainPanel.current.scrollTop = 0;
@@ -65,20 +64,19 @@ class Dashboard extends React.Component {
   handleBgClick = color => {
     this.setState({ backgroundColor: color });
   };
-  render() {
-    
+  render() { 
     return (
       <div className="wrapper">
         <Sidebar
           {...this.props}
-          routes={route}
+          routes={this.state.menuroute}
           bgColor={this.state.backgroundColor}
           activeColor={this.state.activeColor}
         />
         <div className="main-panel" ref={this.mainPanel}>
           <DemoNavbar {...this.props} />
           <Switch>
-            {route.map((prop, key) => {
+            {this.state.menuroute.map((prop, key) => {
               return (
                 <Route
                   path={prop.layout + prop.path}

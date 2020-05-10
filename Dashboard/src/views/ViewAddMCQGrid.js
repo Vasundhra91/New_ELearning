@@ -29,9 +29,12 @@ const MCQ_Function = ({ MCQ_quesdetails, DeleteMCQ_quesdetails }) => {
   }
   )
   return (
-    <div>
+    <div style={{ paddingTop: "50px" }}>
+          <div className="container">
+        <div  style={{ background: "#cce6ff", width: "100%" }}>
       {MCQ_queslist}
     </div>
+    </div></div>
   )
 
 }
