@@ -1,12 +1,12 @@
 import React from 'react';
-import Button from '@material-ui/core/Button';
-import Container from '@material-ui/core/Container';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
-import axios from "axios";
-import TextField from '@material-ui/core/TextField';
+import Button from '../node_modules1/@material-ui/core/Button';
+import Container from '../node_modules1/@material-ui/core/Container';
+import CssBaseline from '../node_modules1/@material-ui/core/CssBaseline';
+import Grid from '../node_modules1/@material-ui/core/Grid';
+import Typography from '../node_modules1/@material-ui/core/Typography';
+import { makeStyles } from '../node_modules1/@material-ui/core/styles';
+import axios from "../node_modules1/axios";
+import TextField from '../node_modules1/@material-ui/core/TextField';
 import Select from "react-select";
 class AddQuestion extends React.Component {
     state = {
@@ -40,7 +40,7 @@ class AddQuestion extends React.Component {
         }))
     }
     validateForm() {
-        return this.state.MCQ_ques.length > 0 && this.state.MCQ_Answer.length > 0 && this.state.MCQ_option.length > 0;
+        return this.state.selectedOption.length > 0 && this.state.MCQ_ques.length > 0 && this.state.MCQ_Answer.length > 0 && this.state.MCQ_option.length > 0;
     }
     componentDidMount() {
         axios
@@ -107,8 +107,8 @@ class AddQuestion extends React.Component {
 
                         <div className="row">
                             <div className="col-lg-2 col-xl-2 col-md-4 col-sm-4">
-                                Course:
-</div><div className="col-lg-2 col-xl-2 col-md-4 col-sm-4">
+                                Course:</div>
+<div className="col-lg-2 col-xl-2 col-md-4 col-sm-4">
                                 <Select value={selectedOption} isDisabled={this.state.loading} classname="form-control input-sm" options={this.state.data} onChange={this.handleChange} placeholder="Course Selection" />
 
                             </div>

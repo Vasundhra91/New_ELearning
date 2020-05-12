@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import Grid from '@material-ui/core/Grid';
-import { userContext } from 'views/Logincontext'
+import Grid from '../node_modules1/@material-ui/core/Grid';
+import { userContext } from '../node_modules1/views/Logincontext'
 export default class View_testPaper extends Component {
     state={
         MCQ_quesdetails:[]
@@ -26,6 +26,7 @@ export default class View_testPaper extends Component {
 
     }
     render() {
+        console.log(this.state.MCQ_quesdetails)
         const MCQ_queslist = this.state.MCQ_quesdetails.map(MCQ_ques => {
             return (
                 <div key={MCQ_ques._id}>

@@ -1,13 +1,13 @@
-import home from "views/Home.js"
-import SigninPage from "views/login"
- import SignupPage from "views/signup"
- import AdminPage from "views/Admin"
- import User_test from "views/User_test"
- import AdminTestPaperPage from "views/testpaper"
-import uploadMaterialfile from "views/uploadMaterialfile"
-import UserAdmit_card from "views/UserAdmit_card"
-import Usercourse from "views/course"
-import ViewQuesPaper from "views/adminviewTestPaper"
+import home from "../node_modules1/views/Home.js.js"
+import SigninPage from "../node_modules1/views/login"
+ import SignupPage from "../node_modules1/views/signup"
+ import AdminPage from "../node_modules1/views/Admin"
+ import User_test from "../node_modules1/views/User_test"
+ import AdminTestPaperPage from "../node_modules1/views/testpaper"
+import uploadMaterialfile from "../node_modules1/views/uploadMaterialfile"
+import UserAdmit_card from "../node_modules1/views/UserAdmit_card"
+import Usercourse from "../node_modules1/views/course"
+import ViewQuesPaper from "../node_modules1/views/adminviewTestPaper"
 var routes = [
   {
     path: "/home",
@@ -39,7 +39,7 @@ var routes = [
   },
   {
     path: "/AdminPage",
-    name: "Admin",
+    name: "Create Exam Test paper",
     icon: "nc-icon nc-caps-small",
     component: AdminPage,
     layout: "/admin",

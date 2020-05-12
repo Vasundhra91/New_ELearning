@@ -1,6 +1,6 @@
 import React from 'react';
-import Grid from '@material-ui/core/Grid';
-import Button from '@material-ui/core/Button';
+import Grid from '../node_modules1/@material-ui/core/Grid';
+import Button from '../node_modules1/@material-ui/core/Button';
 
 const MCQ_Function = ({ MCQ_quesdetails, DeleteMCQ_quesdetails }) => {
   const MCQ_queslist = MCQ_quesdetails.map(MCQ_ques => {

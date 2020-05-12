@@ -1,13 +1,13 @@
 import React from "react";
 // javascript plugin used to create scrollbars on windows
-import PerfectScrollbar from "perfect-scrollbar";
+import PerfectScrollbar from "../node_modules1/perfect-scrollbar";
 import { Route, Switch } from "react-router-dom";
-import { userContext } from 'views/Logincontext'
-import DemoNavbar from "components/Navbars/DemoNavbar.jsx";
-import Footer from "components/Footer/Footer.jsx";
-import Sidebar from "components/Sidebar/Sidebar.jsx";
+import { userContext } from '../node_modules1/views/Logincontext'
+import DemoNavbar from "../node_modules1/components/Navbars/DemoNavbar.jsx.js";
+import Footer from "../node_modules1/components/Footer/Footer.jsx.js";
+import Sidebar from "../node_modules1/components/Sidebar/Sidebar.jsx.js";
 
-import route from "routes.js";
+import route from "../node_modules1/routes.js.js";
 var ps;
 //var menuroute =route.filter(function (entry) { return entry.display === true; });
 

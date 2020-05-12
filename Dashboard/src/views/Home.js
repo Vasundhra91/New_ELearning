@@ -1,7 +1,7 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
-import Link from '@material-ui/core/Link';
+import { makeStyles } from '../node_modules1/@material-ui/core/styles';
+import Container from '../node_modules1/@material-ui/core/Container';
+import Link from '../node_modules1/@material-ui/core/Link';
 //import Maapform from './RangeCircleform'
 export default function Home() {
     console.log(localStorage.getItem("parentValueKey"))

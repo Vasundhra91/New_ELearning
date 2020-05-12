@@ -18,7 +18,7 @@
 */
 import React from "react";
 // react plugin used to create charts
-import { Line, Pie } from "react-chartjs-2";
+import { Line, Pie } from "../node_modules1/react-chartjs-2";
 // reactstrap components
 import {
   Card,
@@ -34,7 +34,7 @@ import {
   dashboard24HoursPerformanceChart,
   dashboardEmailStatisticsChart,
   dashboardNASDAQChart
-} from "variables/charts.jsx";
+} from "../node_modules1/variables/charts.jsx.js";
 
 class Dashboard extends React.Component {
   render() {

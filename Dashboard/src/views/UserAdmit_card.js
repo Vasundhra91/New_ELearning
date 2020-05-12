@@ -1,5 +1,5 @@
 import React from 'react';
-import { userContext } from 'views/Logincontext'
+import { userContext } from '../node_modules1/views/Logincontext'
 class AdmitCard extends React.Component {
   state = {
     UserCourse: [],

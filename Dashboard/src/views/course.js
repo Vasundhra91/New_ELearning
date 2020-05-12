@@ -1,10 +1,10 @@
 
 import React, { useState, useEffect } from 'react';
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
-import axios from "axios";
+import Button from '../node_modules1/@material-ui/core/Button';
+import TextField from '../node_modules1/@material-ui/core/TextField';
+import { makeStyles } from '../node_modules1/@material-ui/core/styles';
+import Container from '../node_modules1/@material-ui/core/Container';
+import axios from "../node_modules1/axios";
 export default function AddCourse() {
     const [data, setData] = useState([]);
     const useStyles = makeStyles(theme => ({

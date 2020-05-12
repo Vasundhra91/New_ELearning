@@ -23,7 +23,7 @@ import {
   withGoogleMap,
   GoogleMap,
   Marker
-} from "react-google-maps";
+} from "../node_modules1/react-google-maps";
 // reactstrap components
 import { Card, CardHeader, CardBody, Row, Col } from "reactstrap";
 

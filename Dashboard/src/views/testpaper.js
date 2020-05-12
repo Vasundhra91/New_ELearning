@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom'
 import { Card, CardHeader, CardBody, CardTitle, Table, Row, Col } from "reactstrap";
-import {userContext} from 'views/Logincontext'
+import {userContext} from '../node_modules1/views/Logincontext'
 export default class User_paper extends Component {
     state = {
         testpaper: [],
@@ -64,7 +64,6 @@ export default class User_paper extends Component {
                 'Content-Type': 'application/json'
             }}).then(res => res.json())
             .then(testpaper => this.setState({ testpaper }))
-            .then(response => console.log('Success:', JSON.stringify(response)))
             .catch(error => console.error('Error:', error))
     }
     render() {
